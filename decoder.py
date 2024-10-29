@@ -2,6 +2,8 @@
 # This is a Python representation of the instruction decoder described in the SystemVerilog code.
 # The Python implementation uses a class to emulate the behavior of the decoder hardware module.
 
+
+
 class Decoder:
     def __init__(self):
         self.reset()
@@ -23,13 +25,17 @@ class Decoder:
         self.decoded_pc_mux = 0
         self.decoded_ret = 0
 
-    def decode(self, clk, reset, core_state, instruction):
+    def execute(self, clk, reset, core_state, instruction):
         """
         Simulates the behavior of the instruction decoder during each clock cycle.
         """
+        print("===============Decoder[2]================")
         if reset:
             self.reset()
         elif core_state == 0b010:  # DECODE state
+            
+            print(f"instruction state: {bin(instruction)}")
+        
             # Get instruction signals from the instruction
             self.decoded_rd_address = (instruction >> 8) & 0xF
             self.decoded_rs_address = (instruction >> 4) & 0xF
@@ -52,51 +58,48 @@ class Decoder:
             opcode = (instruction >> 12) & 0xF
 
             if opcode == 0b0000:  # NOP
+                print("# NOP")
                 pass  # No operation
             elif opcode == 0b0001:  # BRnzp
+                print("# BRnzp")
                 self.decoded_pc_mux = 1
             elif opcode == 0b0010:  # CMP
+                print("# CMP")
                 self.decoded_alu_output_mux = 1
                 self.decoded_nzp_write_enable = 1
             elif opcode == 0b0011:  # ADD
+                print("# ADD")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b00
                 self.decoded_alu_arithmetic_mux = 0b00
             elif opcode == 0b0100:  # SUB
+                print("# SUB")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b00
                 self.decoded_alu_arithmetic_mux = 0b01
             elif opcode == 0b0101:  # MUL
+                print("# MUL")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b00
                 self.decoded_alu_arithmetic_mux = 0b10
             elif opcode == 0b0110:  # DIV
+                print("# DIV")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b00
                 self.decoded_alu_arithmetic_mux = 0b11
             elif opcode == 0b0111:  # LDR
+                print("# LDR")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b01
                 self.decoded_mem_read_enable = 1
             elif opcode == 0b1000:  # STR
+                print("# STR")
                 self.decoded_mem_write_enable = 1
             elif opcode == 0b1001:  # CONST
+                print("# CONST")
                 self.decoded_reg_write_enable = 1
                 self.decoded_reg_input_mux = 0b10
             elif opcode == 0b1111:  # RET
+                print("# RET")
                 self.decoded_ret = 1
-
-# Example usage
-decoder = Decoder()
-clk = True
-reset = False
-core_state = 0b010  # DECODE state
-instruction = 0b0011000000001111  # Example instruction for ADD operation
-
-decoder.decode(clk, reset, core_state, instruction)
-print(f"Decoded RD Address: {decoder.decoded_rd_address}")
-print(f"Decoded RS Address: {decoder.decoded_rs_address}")
-print(f"Decoded RT Address: {decoder.decoded_rt_address}")
-print(f"Decoded Immediate: {decoder.decoded_immediate}")
-print(f"Decoded Reg Write Enable: {decoder.decoded_reg_write_enable}")
 

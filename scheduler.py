@@ -13,18 +13,22 @@ class Scheduler:
         self.core_state = 0b000  # IDLE state
         self.done = False
 
-    def execute(self, clk, reset, start, decoded_mem_read_enable, decoded_mem_write_enable, decoded_ret, fetcher_state, lsu_state, next_pc):
+    def execute(self, clk, reset, start, decoded_ret, fetcher_state, lsu_state, next_pc):
         """
         Simulates the behavior of the scheduler during each clock cycle.
         """
-        IDLE = 0b000
-        FETCH = 0b001
-        DECODE = 0b010
-        REQUEST = 0b011
-        WAIT = 0b100
-        EXECUTE = 0b101
-        UPDATE = 0b110
-        DONE = 0b111
+        
+        print("==============Scheduler[0]===============")
+        #print( next_pc )
+        
+        IDLE = 0b000			# 0
+        FETCH = 0b001			# 1
+        DECODE = 0b010			# 2
+        REQUEST = 0b011		# 3
+        WAIT = 0b100			# 4
+        EXECUTE = 0b101		# 5
+        UPDATE = 0b110			# 6
+        DONE = 0b111			# 7
 
         if reset:
             self.reset()
@@ -33,7 +37,7 @@ class Scheduler:
                 if start:
                     self.core_state = FETCH
             elif self.core_state == FETCH:
-                if fetcher_state == 0b010:  # FETCHED state
+                if fetcher_state == 'FETCHED':  # FETCHED state
                     self.core_state = DECODE
             elif self.core_state == DECODE:
                 self.core_state = REQUEST
@@ -54,22 +58,8 @@ class Scheduler:
                     self.core_state = FETCH
             elif self.core_state == DONE:
                 pass  # No operation
+                
+        #print("============current_pc===================")
+        #print(self.current_pc)
 
-# Example usage
-scheduler = Scheduler()
-clk = True
-reset = False
-start = True
-decoded_mem_read_enable = False
-decoded_mem_write_enable = False
-decoded_ret = False
-fetcher_state = 0b010  # FETCHED state
-lsu_state = [0b00, 0b00, 0b00, 0b00]  # All LSUs are IDLE
-next_pc = [10, 11, 12, 13]
-
-scheduler.execute(clk, reset, start, decoded_mem_read_enable, decoded_mem_write_enable,
-                  decoded_ret, fetcher_state, lsu_state, next_pc)
-print(f"Current PC: {scheduler.current_pc}")
-print(f"Core State: {scheduler.core_state}")
-print(f"Done: {scheduler.done}")
 
