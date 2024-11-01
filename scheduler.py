@@ -34,26 +34,37 @@ class Scheduler:
             self.reset()
         else:
             if self.core_state == IDLE:
+                print("IDLE")
                 if start:
                     self.core_state = FETCH
+                print("IDLE->FETCH")
             elif self.core_state == FETCH:
+                print("FETCH")
                 if fetcher_state == 'FETCHED':  # FETCHED state
+                    print("fetcher_state == 'FETCHED'")
+                    print("FETCH->DECODE")
                     self.core_state = DECODE
             elif self.core_state == DECODE:
+                print("REQUEST")
                 self.core_state = REQUEST
             elif self.core_state == REQUEST:
+                print("WAIT")
                 self.core_state = WAIT
             elif self.core_state == WAIT:
                 any_lsu_waiting = any(lsu in [0b01, 0b10] for lsu in lsu_state)
+                print("any_lsu_waiting")
                 if not any_lsu_waiting:
+                    print("EXECUTE")
                     self.core_state = EXECUTE
             elif self.core_state == EXECUTE:
+                print("UPDATE")
                 self.core_state = UPDATE
             elif self.core_state == UPDATE:
                 if decoded_ret:
                     self.done = True
                     self.core_state = DONE
                 else:
+                    print("FETCH and current_pc")
                     self.current_pc = next_pc[-1]  # Assume all next_pc converge
                     self.core_state = FETCH
             elif self.core_state == DONE:

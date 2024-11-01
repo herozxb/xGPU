@@ -34,7 +34,9 @@ class Decoder:
             self.reset()
         elif core_state == 0b010:  # DECODE state
             
-            print(f"instruction state: {bin(instruction)}")
+            print("core_state == 0b010")
+            print("instruction state:")
+            print( {bin(instruction)} )
         
             # Get instruction signals from the instruction
             self.decoded_rd_address = (instruction >> 8) & 0xF
@@ -43,6 +45,13 @@ class Decoder:
             self.decoded_immediate = instruction & 0xFF
             self.decoded_nzp = (instruction >> 9) & 0x7
 
+            print("decoded_rd_address")
+            print(self.decoded_rd_address)
+            print("decoded_rs_address")
+            print(self.decoded_rs_address)
+            print("decoded_rt_address")
+            print(self.decoded_rt_address)
+            
             # Control signals reset on every decode and set conditionally by instruction
             self.decoded_reg_write_enable = 0
             self.decoded_mem_read_enable = 0
