@@ -88,7 +88,7 @@ class Core:
 # Example usage of Core
 if __name__ == "__main__":
 
-    core_number = 4
+    core_number = 1
 
     clk = True  # Clock placeholder
     reset = False
@@ -134,6 +134,8 @@ if __name__ == "__main__":
 
     # Initialize Program Memory
     program_memory = Memory(dut=dut, addr_bits=8, data_bits=16, channels=1, name="program")
+    
+    #'''
     program = [
         0b0101000011011110, # MUL R0, %blockIdx, %blockDim           # self.registers[13] = 0 				# %blockIdx
                                                                      # self.registers[14] = self.THREADS_PER_BLOCK  	# %blockDim   
@@ -245,7 +247,7 @@ if __name__ == "__main__":
 
 
     # Simulate clock cycles
-    for cycle in range(86): # 9, 16, 23, 30, 37, 44, 51, 58, 65, 72, 79, 86
+    for cycle in range(860): # 9, 16, 23, 30, 37, 44, 51, 58, 65, 72, 79, 86
     
         core.execute(clk, reset, start, block_id=0, thread_count=core_number, program_memory=program_memory, data_memory=data_memory)
         
@@ -259,5 +261,8 @@ if __name__ == "__main__":
         print(f"Done: {core.scheduler.done}")
         print(f"Fetcher state: {core.fetcher.fetcher_state}")
         print("-" * 30)
+        
+        if core.scheduler.core_state == 0b111:
+            break
         
     data_memory.display(rows=24, decimal=True)
