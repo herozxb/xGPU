@@ -31,6 +31,10 @@ class Core:
         self.register_file = [RegisterFile(threads_per_block, i, data_mem_data_bits) for i in range(threads_per_block)]
         self.pc = [ProgramCounter(data_mem_data_bits, program_mem_addr_bits) for _ in range(threads_per_block)]
 
+        print("len")
+        print(threads_per_block)
+        print(len(self.alu))
+    
     def reset(self):
         self.fetcher.reset()
         self.decoder.reset()
@@ -83,16 +87,19 @@ class Core:
 
 # Example usage of Core
 if __name__ == "__main__":
+
+    core_number = 4
+
     clk = True  # Clock placeholder
     reset = False
     start = True
 
     # Initialize the core with 4 threads per block
-    core = Core(threads_per_block=1)
+    core = Core(threads_per_block=core_number)
 
     # Placeholder values for the required inputs
     block_id = 0  # Block ID
-    thread_count = 1  # Number of threads per block
+    thread_count = core_number  # Number of threads per block
     program_mem_read_ready = True  # Program memory read is ready (placeholder)
     program_mem_read_data = 0x0  # Placeholder for program memory read data
 
@@ -182,7 +189,7 @@ if __name__ == "__main__":
     program_memory.load(program)
 
     # Initialize Data Memory
-    data_memory = Memory(dut=dut, addr_bits=8, data_bits=8, channels=4, name="data")
+    data_memory = Memory(dut=dut, addr_bits=8, data_bits=8, channels=1, name="data")
     data = [
         0, 1, 2, 3, 4, 5, 6, 7,  # Matrix A (1 x 8)
         0, 1, 2, 3, 4, 5, 6, 7,  # Matrix B (1 x 8)
@@ -240,7 +247,7 @@ if __name__ == "__main__":
     # Simulate clock cycles
     for cycle in range(86): # 9, 16, 23, 30, 37, 44, 51, 58, 65, 72, 79, 86
     
-        core.execute(clk, reset, start, block_id=0, thread_count=1, program_memory=program_memory, data_memory=data_memory)
+        core.execute(clk, reset, start, block_id=0, thread_count=core_number, program_memory=program_memory, data_memory=data_memory)
         
         # Toggle clock
         clk = not clk
