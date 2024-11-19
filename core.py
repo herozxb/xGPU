@@ -46,7 +46,7 @@ class Core:
             self.pc[i].reset()
             
     def execute(self, clk, reset, start, block_id, thread_count, program_memory, data_memory):
-        print("========================================core============================================")   
+        print("=================================core=================================")   
         if reset:
             self.reset()
         else:

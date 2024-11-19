@@ -23,7 +23,7 @@ class ALU:
         :param rt: Second operand (8-bit integer)
         """
         
-        print("===============ALU[3]================")
+        print("=================ALU[3]==================")
         
         # Local parameter constants for operation codes
         ADD = 0b00
@@ -36,7 +36,6 @@ class ALU:
             self.alu_out = 0
         elif enable:
         
-            print("============1===============")
             # Execute ALU operation when core_state is EXECUTE (represented by 0b101)
             if core_state == 0b101: 
             
@@ -49,14 +48,14 @@ class ALU:
 #		UPDATE = 0b110			# 6
 #		DONE = 0b111			# 7
             
-                print("============2===============")
+                print("========core_state=EXECUTE==========")
                 if decoded_alu_output_mux == 1:
-                    print("============0===============")
+                    print("============nzp===============")
                     # Set values to compare with NZP register in alu_out[2:0]
                     nzp = [int(rs - rt > 0), int(rs - rt == 0), int(rs - rt < 0)]
                     self.alu_out = (nzp[0] << 2) | (nzp[1] << 1) | nzp[2]
                 else:
-                    print("============decoded_alu_arithmetic_mux===============")
+                    print("====decoded_alu_arithmetic_mux======")
                     print(bin(decoded_alu_arithmetic_mux))
                     print(rs)
                     print(rt)
@@ -67,6 +66,7 @@ class ALU:
                         print(rt)
                         self.alu_out = (rs + rt) & 0xFF  # Ensure 8-bit result
                     elif decoded_alu_arithmetic_mux == SUB:
+                        print("SUB in AlU")
                         self.alu_out = (rs - rt) & 0xFF  # Ensure 8-bit result
                     elif decoded_alu_arithmetic_mux == MUL:
                         print("MUL in AlU")
@@ -74,6 +74,7 @@ class ALU:
                         print(rt)
                         self.alu_out = (rs * rt) & 0xFF  # Ensure 8-bit result
                     elif decoded_alu_arithmetic_mux == DIV:
+                        print("DIV in AlU")
                         self.alu_out = (rs // rt) & 0xFF if rt != 0 else 0  # Avoid division by zero, 8-bit result
         print("ALU output")
         print(bin(self.alu_out))

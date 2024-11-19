@@ -25,8 +25,8 @@ class RegisterFile:
                 decoded_rt_address, decoded_reg_write_enable, decoded_reg_input_mux, decoded_immediate,
                 alu_out, lsu_out):
                 
-        print("===============RegisterFile[5]================")
-        print("===============core_state================")
+        print("=============RegisterFile[5]=============")
+        print("============core_state=============")
         print(bin(core_state))
         
         """
@@ -49,9 +49,9 @@ class RegisterFile:
 #        UPDATE = 0b110			# 6
 #        DONE = 0b111			# 7        
         
-            print("==================block_id========================")
+            print("=============block_id==============")
             print(block_id)
-            print("==================self.registers[start]========================")
+            print("=======self.registers[start]=======")
             print(self.registers)
             # Update the block_id when a new block is issued from dispatcher
             #self.registers[13] = block_id
@@ -59,10 +59,10 @@ class RegisterFile:
             self.registers[13] = 1
             #self.registers[1] = 100
 
-            print("==================decoded_rs_address========================")
+            print("=======decoded_rs_address==========")
             print(decoded_rs_address)
 
-            print("==================decoded_rt_address========================")
+            print("=======decoded_rt_address==========")
             print(decoded_rt_address)
 
             # Fill rs/rt when core_state = REQUEST (0b011)
@@ -70,12 +70,12 @@ class RegisterFile:
                 self.rs = self.registers[decoded_rs_address]
                 self.rt = self.registers[decoded_rt_address]
                 
-                print("==================after_REQUEST========================")
+                print("=======after_REQUEST=========")
                 print(self.rs)
                 print(self.rt)
             
             
-            print("==================core_state[register]========================")
+            print("======core_state[register]=========")
             print(bin(core_state) )           
 
 
@@ -83,7 +83,7 @@ class RegisterFile:
             if core_state == 0b110:
                 # Only allow writing to R0 - R12
                 
-                print("==================[UPDATE]decoded_reg_input_mux[register]========================")
+                print("===[UPDATE]decoded_reg_input_mux[register]===")
                 print(bin(decoded_reg_input_mux)) 
                 print(bin(decoded_rd_address)) 
                 print(bin(alu_out)) 
@@ -104,5 +104,5 @@ class RegisterFile:
                         self.registers[decoded_rd_address] = decoded_immediate
                 print(self.registers) 
 
-            print("==================self.registers[end]========================")
+            print("======self.registers[end]==========")
             print(self.registers)

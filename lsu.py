@@ -22,7 +22,7 @@ class LSU:
         Simulates the behavior of the load-store unit during each clock cycle.
         """
         
-        print("===============LSU[4]================")
+        print("=================LSU[4]==================")
         
         IDLE = 0b00
         REQUESTING = 0b01
@@ -35,10 +35,10 @@ class LSU:
         
             #self.lsu_state = 0b00
 
-            print("===============self.lsu_state================")
+            print("=========self.lsu_state========")
             print(bin(self.lsu_state))
 
-            print("===============decoded_mem_read_enable================")
+            print("====decoded_mem_read_enable====")
             print(decoded_mem_read_enable)
             # If memory read enable is triggered (LDR instruction)
             if decoded_mem_read_enable:
@@ -68,7 +68,7 @@ class LSU:
                     if core_state == 0b110:  # UPDATE state
                         self.lsu_state = IDLE
 
-            print("===============decoded_mem_write_enable================")
+            print("===decoded_mem_write_enable====")
             print(decoded_mem_write_enable)
 
             # If memory write enable is triggered (STR instruction)
