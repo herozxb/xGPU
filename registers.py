@@ -25,7 +25,7 @@ class RegisterFile:
                 decoded_rt_address, decoded_reg_write_enable, decoded_reg_input_mux, decoded_immediate,
                 alu_out, lsu_out):
                 
-        print("=============RegisterFile[5]=============")
+        print("===========RegisterFile[5]===============")
         print("============core_state=============")
         print(bin(core_state))
         

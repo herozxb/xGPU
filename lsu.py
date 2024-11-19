@@ -22,7 +22,7 @@ class LSU:
         Simulates the behavior of the load-store unit during each clock cycle.
         """
         
-        print("=================LSU[4]==================")
+        print("====================LSU[4]===============")
         
         IDLE = 0b00
         REQUESTING = 0b01

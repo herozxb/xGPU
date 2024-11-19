@@ -29,7 +29,7 @@ class Decoder:
         """
         Simulates the behavior of the instruction decoder during each clock cycle.
         """
-        print("===============Decoder[2]================")
+        print("================Decoder[2]===============")
         if reset:
             self.reset()
         elif core_state == 0b010:  # DECODE state

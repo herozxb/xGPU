@@ -23,7 +23,7 @@ class ALU:
         :param rt: Second operand (8-bit integer)
         """
         
-        print("=================ALU[3]==================")
+        print("====================ALU[3]===============")
         
         # Local parameter constants for operation codes
         ADD = 0b00

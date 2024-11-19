@@ -18,7 +18,7 @@ class ProgramCounter:
         """
         Simulates the behavior of the program counter during each clock cycle.
         """
-        print("=============ProgramCounter[6]============")
+        print("=========ProgramCounter[6]================")
         if reset:
             self.reset()
         elif enable:

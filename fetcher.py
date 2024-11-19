@@ -19,7 +19,7 @@ class Fetcher:
         self.instruction = 0
 
     def execute(self, clk, reset, core_state, current_pc, program_mem_read_ready, program_mem_read_data):
-        print("===============Fetcher[1]================")
+        print("================Fetcher[1]===============")
         print("===========self.fetcher_state==========")
         print(self.fetcher_state)
         if reset:
